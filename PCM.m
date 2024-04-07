@@ -1,7 +1,7 @@
-% par路metros de configuraci脹n
+% par醡etros de configuraci髇
 fm = 100000; % Hz
 tiempo_muestreo = 1/fm; % segundos
-ls = 200; % largo de la se脪al
+ls = 200; % largo de la se馻l
 f_c = 1000; % Hz
 
 % Hay que ver
@@ -11,15 +11,15 @@ tau = 0.5*t_s; % segundos
 d = tau/t_s; % ciclo de trabajo
 
 
-% Par路metros de la se脪al
-duracion = 1;               % Duraci脹n de la se脪al en segundos
+% Par醡etros de la se馻l
+duracion = 1;               % Duraci髇 de la se馻l en segundos
 frec_muestreo = 8;       % Frecuencia de muestreo en Hz
-bits_por_muestra = 4;       % N藱mero de bits por muestra
+bits_por_muestra = 4;       % N鷐ero de bits por muestra
 
  t = (0:ls-1)*tiempo_muestreo;
 % t = 0:1/frec_muestreo:duracion-1/frec_muestreo; % Vector de tiempo
 
-% Generaci脹n de la se脪al sinusoidal
+% Generaci髇 de la se馻l sinusoidal
 m_t = sin(2*pi*f_c*t);
 
 
@@ -33,63 +33,63 @@ end
 
 m_t_inst = m_t_inst(1:length(t));
 
-% Cuantificaci脹n PCM
+% Cuantificaci髇 PCM
 
 
-% N藱mero de niveles de cuantificaci脹n
+% N鷐ero de niveles de cuantificaci髇
 niveles = 2^bits_por_muestra;
 
-% Cuantificaci脹n
+% Cuantificaci髇
 pcm_signal_inst = round((m_t_inst + 1) * (niveles - 1) / 2);
 
 
-% Normaliza las se脪ales para que est脠n en el mismo rango de amplitud (0 a 1)
+% Normaliza las se馻les para que est閚 en el mismo rango de amplitud (0 a 1)
 m_t_norm = (m_t - min(m_t)) / (max(m_t) - min(m_t));
 m_t_inst_norm = (m_t_inst - min(m_t_inst)) / (max(m_t_inst) - min(m_t_inst));
 pcm_signal_inst_norm = (pcm_signal_inst - min(pcm_signal_inst)) / (max(pcm_signal_inst) - min(pcm_signal_inst));
 
 
-% Calcular el error de cuantizaci脹n
+% Calcular el error de cuantizaci髇
 error = m_t_inst_norm - pcm_signal_inst_norm;
 
-% Calcular el error cuadr路tico medio (MSE)
+% Calcular el error cuadr醫ico medio (MSE)
 MSE = mean(error.^2);
 
-disp(['El error cuadr路tico medio (MSE) es: ', num2str(MSE)]);
+disp(['El error cuadr醫ico medio (MSE) es: ', num2str(MSE)]);
 
 
 
 
-% Plot de la se脪al original
+% Plot de la se馻l original
 subplot(3,1,1);
 plot(t, m_t_norm);
-title('Se脪al Original');
+title('Se馻l Original');
 xlabel('Tiempo (s)');
 ylabel('Amplitud');
 
-% Plot de la se脪al PAM instant路nea
+% Plot de la se馻l PAM instant醤ea
 subplot(3,1,2);
 plot(t, m_t_inst_norm);
-title('Se脪al PAM instant路nea');
+title('Se馻l PAM instant醤ea');
 xlabel('Tiempo (s)');
 ylabel('Amplitud');
 grid on;
 
-% Plot de la se脪al PAM instant路nea cuantificada
+% Plot de la se馻l PAM instant醤ea cuantificada
 subplot(3,1,3);
 stem(t, pcm_signal_inst_norm);
-title('Se脪al PCM Cuantificada');
+title('Se馻l PAM instant醤ea Cuantificada');
 xlabel('Tiempo (s)');
-ylabel('Nivel de cuantificaci脹n');
+ylabel('Nivel de cuantificaci髇');
 grid on;
 
 
 
 
 
-% Gr路fico del error de cuantizaci脹n en funci脹n del tiempo
+% Gr醘ico del error de cuantizaci髇 en funci髇 del tiempo
 figure;
 plot(t, error);
-title('Error de Cuantizaci脹n');
+title('Error de Cuantizaci髇');
 xlabel('Tiempo (s)');
 ylabel('Error');
